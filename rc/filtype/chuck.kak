@@ -2,6 +2,10 @@ hook global BufCreate .*[.]ck %{
   set-option buffer filetype chuck
 }
 
+hook global WinSetOption filetype=chuck ${
+	require-module chuck
+}
+
 provide-module chuck %{
   add-highlighter shared/chuck regions
   add-highlighter shared/chuck/code default-region group
