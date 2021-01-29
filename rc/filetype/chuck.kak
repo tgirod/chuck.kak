@@ -11,5 +11,5 @@ provide-module chuck %{
   add-highlighter shared/chuck/code default-region group
 
   add-highlighter shared/chuck/comment_line	region '//' '$' fill comment
-  add-highlighter shared/chuck/comment_region region '/\*' '\*/' comment
+  add-highlighter shared/chuck/comment_region region '/\*' '\*/' fill comment
 }
