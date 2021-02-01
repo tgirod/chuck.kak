@@ -33,7 +33,7 @@ provide-module chuck %{
 
 	add-highlighter shared/chuck/code/types regex \b(int|float|time|dur|void|string|array|ugen|complex|polar|Object|Event|UGen)\b 0:type
 
-	add-highlighter shared/chuck/code/operators regex \b(=>|@=>|=\^)\b 0:operator
+	add-highlighter shared/chuck/code/operators regex \B(=>|@=>|=\^)\B 0:operator
 }
 
 define-command -hidden chuck-indent-on-new-line %{
