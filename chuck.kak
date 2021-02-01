@@ -11,6 +11,7 @@ hook global BufCreate .*[.]ck %{
 hook global WinSetOption filetype=chuck %{
     require-module chuck
 
+    hook window InsertChar \n -group chuck-indent chuck-indent-on-new-line
     hook -once -always window WinSetOption filetype=.* %{ remove-hooks window chuck-.+ }
 }
 
@@ -36,3 +37,11 @@ provide-module chuck %{
 	add-highlighter shared/chuck/code/operators regex \b(=>|@=>|=\^)\b 0:operator
 }
 
+define-command -hidden chuck-indent-on-new-line %{
+    evaluate-commands -draft -itersel %{
+        # preserve previous line indent
+        try %{ execute-keys -draft <semicolon> K <a-&> }
+        # indent after :
+        try %{ execute-keys -draft <space> k x <a-k> :$ <ret> j <a-gt> }
+    }
+}
