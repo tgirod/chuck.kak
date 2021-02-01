@@ -46,7 +46,7 @@ define-command -hidden chuck-indent-on-new-line %{
 }
 
 define-command -docstring "chuck-start: starts the chuck server" chuck-start %{
-  tmux-repl-vertical chuck --server --loop
+  tmux-repl-vertical chuck --loop
   tmux-focus
 }
 
