@@ -9,15 +9,14 @@ hook global BufCreate .*[.]ck %{
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
 hook global WinSetOption filetype=chuck %{
-    require-module chuck
-
-    hook window InsertChar \n -group chuck-indent chuck-indent-on-new-line
-    hook -once -always window WinSetOption filetype=.* %{ remove-hooks window chuck-.+ }
+  require-module chuck
+  hook window InsertChar \n -group chuck-indent chuck-indent-on-new-line
+  hook -once -always window WinSetOption filetype=.* %{ remove-hooks window chuck-.+ }
 }
 
 hook -group chuck-highlight global WinSetOption filetype=chuck %{
-    add-highlighter window/chuck ref chuck
-    hook -once -always window WinSetOption filetype=.* %{ remove-highlighter window/chuck }
+  add-highlighter window/chuck ref chuck
+  hook -once -always window WinSetOption filetype=.* %{ remove-highlighter window/chuck }
 }
 
 provide-module chuck %{
@@ -38,10 +37,16 @@ provide-module chuck %{
 }
 
 define-command -hidden chuck-indent-on-new-line %{
-    evaluate-commands -draft -itersel %{
-        # preserve previous line indent
-        try %{ execute-keys -draft <semicolon> K <a-&> }
-        # indent after :
-        try %{ execute-keys -draft <space> k x <a-k> :$ <ret> j <a-gt> }
-    }
+  evaluate-commands -draft -itersel %{
+    # preserve previous line indent
+    try %{ execute-keys -draft <semicolon> K <a-&> }
+    # indent after :
+    try %{ execute-keys -draft <space> k x <a-k> :$ <ret> j <a-gt> }
+  }
 }
+
+define-command -docstring "chuck-start: starts the chuck server" chuck-start %{
+  tmux-repl-vertical chuck --server --loop
+  tmux-focus
+}
+
